@@ -1,0 +1,16 @@
+
+.gameboard {
+
+}
+
+.row1, .row2, .row3 {
+    display: flex;
+    flex-direction: row;
+
+}
+
+
+.row1, .row2, .row3 {
+    width: 10em;
+    font-size: 20em;
+}
