@@ -21,29 +21,58 @@ function App() {
             setCurrentChar(secondChar)
         }
     }
+
     const checkWinner = (gameboard) => {
-        let charCounter = 0;
+        let col0 = gameboard[0][0] + gameboard[1][0] + gameboard[2][0]
+        let col1 = gameboard[0][1] + gameboard[1][1] + gameboard[2][1]
+        let col2 = gameboard[0][2] + gameboard[1][2] + gameboard[2][2]
+        let winnerArray = ["xxx", "ooo"]
+
+        if (typeof col0 === "string" && winnerArray.includes(col0.toLowerCase())){
+
+            alert(gameboard[0][0] + " is winner!");
+            resetGameboard()
+        }
+        if (typeof col1 === "string" && winnerArray.includes(col1.toLowerCase())){
+
+            alert(gameboard[0][1] + " is winner!");
+            resetGameboard()
+        }
+        if (typeof col2 === "string" && winnerArray.includes(col2.toLowerCase())){
+
+            alert(gameboard[0][2] + " is winner!");
+            resetGameboard()
+        }
+
+        let diag1 = gameboard[0][0] + gameboard[1][1] + gameboard[2][2]
+        let diag2 = gameboard[0][2] + gameboard[1][1] + gameboard[2][0]
+
+        if (typeof diag1 === "string" && winnerArray.includes(diag1.toLowerCase())) {
+            alert(diag1[0] + " is winner!")
+            resetGameboard()
+        }
+        if (typeof diag2 === "string" && winnerArray.includes(diag2.toLowerCase())) {
+            alert(diag2[0] + " is winner!")
+            resetGameboard()
+        }
+
+
         for (let i = 0; i <= 2; i++) {
             if (gameboard) {
-                if (gameboard[i].join('').toLowerCase() === ("xxx" || "ooo")) {
+                if (winnerArray.includes(gameboard[i].join('').toLowerCase())) {
                     alert(gameboard[i][0] + " wins!")
-                    // console.log(gameboard[i][0] + " wins!");
+                    setFirstChar(false)
                 } else {
                     console.log("no winner yet");
                 }
             }
-            for (let j = 0; j <= 2; j++) {
-                //0,0 - 1,0 - 2,0  0,1 - 1,1 - 2,1 0,2 - 1,2 - 2,2
-                columnString += gameboard[i][0]
-                if (columnString.toLowerCase() === ("xxx" | "ooo")) {
-                    console.log("column wins");
-                }
-            }
-
         }
 
 
+
     }
+
+
 
     useEffect(() => {
 
@@ -63,6 +92,16 @@ function App() {
 
     },[gameboard])
 
+    const resetGameboard = () => {
+        setFirstChar()
+        setSecondChar()
+        setCounter(0)
+        setRow0(defaultArray)
+        setRow1(defaultArray)
+        setRow2(defaultArray)
+        checkWhichChar(counter)
+    }
+
   return (
     <div className="App">
 
@@ -74,12 +113,7 @@ function App() {
         {firstChar ?
             <button onClick={(event) => {
                 event.preventDefault();
-                setFirstChar()
-                setCounter(0)
-                setRow0(defaultArray)
-                setRow1(defaultArray)
-                setRow2(defaultArray)
-                checkWhichChar(counter)
+                resetGameboard()
             }}>Reset</button>  :
             <div>
 
